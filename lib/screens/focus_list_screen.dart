@@ -147,6 +147,9 @@ class _FocusListScreenState extends State<FocusListScreen> {
 
   _logout() {
     auth.FirebaseAuth.instance.signOut().then((_) {
+      final user = User();
+      user.id = null;
+      user.name = null;
       Navigator.of(context).pushReplacementNamed(SplashScreen.routeName);
     });
   }

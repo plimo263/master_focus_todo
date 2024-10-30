@@ -11,6 +11,8 @@ const strings = {
   'label_btn_login_google': 'Login com o Google',
   'label_app_name': 'Master Focus Todo',
   'label_version': 'Versão:',
+  'label_btn_login_guest': 'Entrar como convidado',
+  'label_or': 'OU',
 };
 
 class LoginScreen extends StatefulWidget {
@@ -57,6 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _loginGuest() {
+    final userModel = user_model.User();
+    userModel.id = 'guest';
+    userModel.name = 'Convidado';
+    _navigateToHome();
+  }
+
   void _navigateToHome() {
     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
@@ -85,15 +94,21 @@ class _LoginScreenState extends State<LoginScreen> {
               _BtnLoginGoogle(
                 onPressed: _isLoading ? null : _signInWithGoogle,
               ),
-              const SizedBox(
-                height: 16,
+              Text(
+                strings['label_or']!,
+                style: styleText,
+              ),
+              _BtnLoginGuest(
+                onPressed: _isLoading ? null : _loginGuest,
               ),
               _isLoading
                   ? const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CircularProgressIndicator(),
                     )
-                  : const SizedBox(),
+                  : const SizedBox(
+                      height: 8,
+                    ),
               Text(
                 "${strings['label_version']} ${ApplicationInfo().versionName}",
                 style: GoogleFonts.orbitron(
@@ -102,6 +117,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BtnLoginGuest extends StatelessWidget {
+  final void Function()? onPressed;
+
+  const _BtnLoginGuest({super.key, this.onPressed});
+
+  Color _getColorForegroundButton(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : Colors.black;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final styleText =
+        GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w600);
+    return SizedBox(
+      width: double.maxFinite,
+      child: OutlinedButton.icon(
+        onPressed: onPressed,
+        label: Text(strings['label_btn_login_guest']!, style: styleText),
+        icon: const Icon(Icons.person),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: _getColorForegroundButton(context),
+          padding: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          side: const BorderSide(
+            color: Colors.black45,
+            width: 2,
           ),
         ),
       ),
