@@ -33,9 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     // Abre a tela para selecionar a conta
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
     // Obtem as credenciais de autenticação da conta do google
     final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+        await googleUser.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
