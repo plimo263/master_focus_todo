@@ -38,7 +38,7 @@ void main() async {
   );
 
   //
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final appDocDir = await getApplicationDocumentsDirectory();
 

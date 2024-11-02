@@ -1,5 +1,9 @@
 # Master Focus To-do
 
+![imagem de capa do app](./snapshots/spap.png)
+
+[📲 LINK do App Play Store](https://play.google.com/store/apps/details?id=com.hdmtecnologia.master_focus_todo&pcampaignid=web_share)
+
 Este é um aplicativo para você manter o foco nas tarefas, sejam elas estudos, tarefas de casa
 ou do trabalho, importante é não perder o objetivo de vista 😊.
 
